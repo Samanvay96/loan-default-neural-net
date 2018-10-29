@@ -1,0 +1,6 @@
+pylint              # Code style report
+ipython             # Awesome REPL
+pandas              # Dealing with dataframes
+numpy               # Array operations
+scipy               # Scientific Computing
+scikit-learn        # Machine Learning Library
