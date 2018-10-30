@@ -8,16 +8,15 @@ def read_dataset(fpath):
     'Reads a CSV file into a pandas dataframe'
     return pd.read_csv(fpath).fillna(0)
 
-def prepare_dataset(dataset, y_feature)
+def prepare_dataset(dataset)
     'Prepares a pandas dataframe for ML'
     # Convert dummies?
-    dataset = pd.get_dummies(dataset)
-    # Create X and Y datasets
-    return dataset.drop(y_feature,axis=1), dataset[y_feature]
+    return pd.get_dummies(dataset)
 
-def split_dataset(X, y):
-    'Split the dataset into test and train'
-    return train_test_split(X, y)
+def split_dataset(dataset, y_feature):
+    'Split the dataset and return a tuple of (test, train)'
+    # Create X and Y datasets
+    return train_test_split(dataset.drop(y_feature, axis=1), dataset[y_feature])
 
 def scale_features(X_train, X_test):
     'Do stuff'
@@ -33,8 +32,9 @@ def run_model(X_train, y_train):
 
 def run(fpath, y_feature):
     'Run an MLP Classifier model over the fpath file for the y_feature'
-    X, y = prepare_dataset(read_dataset(fpath), y_feature)
-    X_train, X_test, y_train, y_test = split_dataset(X, y)
+    dataset = prepare_dataset(read_dataset(fpath), y_feature)
+    X_train, X_test, y_train, y_test = split_dataset(dataset, y_feature)
+
     X_train, X_test = scale_features(X_train, X_test)
     predictions = run_model(X_train, y_train).predict(X_test)
     return classification_report(y_test,predictions)
