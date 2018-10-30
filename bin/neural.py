@@ -8,19 +8,16 @@ def read_dataset(fpath):
     'Reads a CSV file into a pandas dataframe'
     return pd.read_csv(fpath).fillna(0)
 
-def prepare_dataset(df, y_feature)
+def prepare_dataset(dataset, y_feature)
     'Prepares a pandas dataframe for ML'
-    dataset = convert_categoricals(df)
+    # Convert dummies?
+    dataset = pd.get_dummies(dataset)
     # Create X and Y datasets
     return dataset.drop(y_feature,axis=1), dataset[y_feature]
 
 def split_dataset(X, y):
     'Split the dataset into test and train'
     return train_test_split(X, y)
-
-def convert_categoricals(df):
-    'Convert dummies?'
-    return pd.get_dummies(df)
 
 def scale_features(X_train, X_test):
     'Do stuff'
